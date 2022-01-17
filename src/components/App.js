@@ -1,5 +1,8 @@
 import { useState } from "react";
 import video from "../data/video.js";
+import Comments from "./Comments.js";
+import Video from "./Video.js";
+import Votes from "./Votes.js";
 
 console.log("Here's your data:", video);
 
@@ -22,38 +25,15 @@ function App() {
 
   return (
     <div className="App">
-      <iframe
-        width="919"
-        height="525"
-        src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-        frameborder="0"
-        allowfullscreen
-        title="Thinking in React"
+      <Video video={video} />
+      <Votes votesClick={votesClick} upVotes={upVotes} downVotes={downVotes} />
+      <br></br>
+      <br></br>
+      <Comments
+        hideComments={hideComments}
+        commentsClick={commentsClick}
+        comments={video.comments}
       />
-      <h1>{video.title}</h1>
-      <p>
-        {video.views} Views | Uploaded {video.createdAt}
-      </p>
-      <button onClick={() => votesClick(upVotes)}>{upVotes} 👍 </button>
-      <button onClick={() => votesClick(downVotes)}>{downVotes} 👎 </button>
-      <br></br>
-      <br></br>
-      <button onClick={commentsClick}>
-        {hideComments ? "Show Comments" : "Hide Comments"}
-      </button>
-      <hr></hr>
-      
-      {hideComments ? (
-        ""
-      ) : (
-        <div>
-          <h2>{video.comments.length} Comments</h2>
-          <strong>{video.comments[0].user}</strong>
-          <p>{video.comments[0].comment}</p>
-          <strong>{video.comments[1].user}</strong>
-          <p>{video.comments[1].comment}</p>
-        </div>
-      )}
     </div>
   );
 }
